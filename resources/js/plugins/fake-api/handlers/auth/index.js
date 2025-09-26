@@ -1,5 +1,5 @@
-import { HttpResponse, http } from 'msw'
 import { db } from '@db/auth/db'
+import { HttpResponse, http } from 'msw'
 
 // Handlers for auth
 export const handlerAuth = [

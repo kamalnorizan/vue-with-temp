@@ -1,7 +1,5 @@
 <script setup>
-import { VForm } from 'vuetify/components/VForm'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import { themeConfig } from '@themeConfig'
 import tree1 from '@images/misc/tree1.png'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
 import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
@@ -10,6 +8,8 @@ import authV2LoginIllustrationLight from '@images/pages/auth-v2-login-illustrati
 import authV2MaskDark from '@images/pages/mask-v2-dark.png'
 import authV2MaskLight from '@images/pages/mask-v2-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+import { themeConfig } from '@themeConfig'
+import { VForm } from 'vuetify/components/VForm'
 
 const authThemeImg = useGenerateImageVariant(authV2LoginIllustrationLight, authV2LoginIllustrationDark, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
 const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
@@ -34,15 +34,15 @@ const errors = ref({
 const refVForm = ref()
 
 const credentials = ref({
-  email: 'admin@demo.com',
-  password: 'admin',
+  email: 'antwan29@example.net',
+  password: 'password',
 })
 
 const rememberMe = ref(false)
 
 const login = async () => {
   try {
-    const res = await $api('/auth/login', {
+    const res = await $api('/login', {
       method: 'POST',
       body: {
         email: credentials.value.email,
@@ -54,14 +54,15 @@ const login = async () => {
     })
 
     const { accessToken, userData, userAbilityRules } = res
+    // console.log(accessToken);
 
-    useCookie('userAbilityRules').value = userAbilityRules
-    ability.update(userAbilityRules)
+    // useCookie('userAbilityRules').value = userAbilityRules
+    // ability.update(userAbilityRules)
     useCookie('userData').value = userData
     useCookie('accessToken').value = accessToken
-    await nextTick(() => {
-      router.replace(route.query.to ? String(route.query.to) : '/')
-    })
+    console.log(accessToken);
+    console.log(userData);
+    router.replace('/')
   } catch (err) {
     console.error(err)
   }
